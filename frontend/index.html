@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Central de Comandos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -11,67 +12,257 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --transition: all 0.3s ease;
+        }
+
+        /* TEMA RETRÔ */
+        body.theme-retro {
+            font-family: 'Orbitron', monospace;
+            background: linear-gradient(135deg, #000000 0%, #1a0033 50%, #000000 100%);
+            color: #00ffff;
+            --bg-primary: rgba(0, 0, 0, 0.8);
+            --bg-secondary: rgba(0, 0, 0, 0.6);
+            --border-primary: #00ffff;
+            --border-secondary: rgba(0, 255, 255, 0.3);
+            --text-primary: #00ffff;
+            --text-secondary: #ff1493;
+            --text-accent: #00ff00;
+            --button-gradient: linear-gradient(45deg, #00ffff, #ff1493);
+        }
+
+        /* TEMA ESCURO */
+        body.theme-dark {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+            color: #cbd5e1;
+            --bg-primary: rgba(30, 41, 59, 0.8);
+            --bg-secondary: rgba(15, 23, 42, 0.6);
+            --border-primary: #3b82f6;
+            --border-secondary: rgba(59, 130, 246, 0.3);
+            --text-primary: #cbd5e1;
+            --text-secondary: #a855f7;
+            --text-accent: #60a5fa;
+            --button-gradient: linear-gradient(45deg, #3b82f6, #a855f7);
+        }
+
+        /* TEMA DIA */
+        body.theme-day {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f1f5f9 0%, #e0e7ff 50%, #f3e8ff 100%);
+            color: #1e293b;
+            --bg-primary: rgba(255, 255, 255, 0.9);
+            --bg-secondary: rgba(248, 250, 252, 0.8);
+            --border-primary: #3b82f6;
+            --border-secondary: rgba(59, 130, 246, 0.3);
+            --text-primary: #1e293b;
+            --text-secondary: #7c3aed;
+            --text-accent: #2563eb;
+            --button-gradient: linear-gradient(45deg, #3b82f6, #7c3aed);
+        }
+
+        /* TEMA PRO */
+        body.theme-pro {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            color: #f1f5f9;
+            --bg-primary: rgba(30, 41, 59, 0.9);
+            --bg-secondary: rgba(15, 23, 42, 0.8);
+            --border-primary: #64748b;
+            --border-secondary: rgba(100, 116, 139, 0.3);
+            --text-primary: #f1f5f9;
+            --text-secondary: #60a5fa;
+            --text-accent: #10b981;
+            --button-gradient: linear-gradient(45deg, #3b82f6, #64748b);
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: #ffffff;
             min-height: 100vh;
             padding: 20px;
+            transition: var(--transition);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Background Effects */
+        .bg-effects {
+            position: fixed;
+            inset: 0;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .theme-retro .bg-effects {
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: grid-move 20s linear infinite;
+        }
+
+        @keyframes grid-move {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
         }
 
         .container {
             max-width: 1400px;
             margin: 0 auto;
+            position: relative;
+            z-index: 10;
         }
 
+        /* Theme Selector */
+        .theme-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+
+        .theme-btn {
+            width: 50px;
+            height: 50px;
+            border: 2px solid var(--border-secondary);
+            background: var(--bg-primary);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .theme-btn:hover,
+        .theme-btn.active {
+            border-color: var(--border-primary);
+            transform: scale(1.1);
+        }
+
+        .theme-retro .theme-btn.active {
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Header */
         .header {
             text-align: center;
             margin-bottom: 40px;
             animation: fadeInDown 0.8s ease-out;
         }
 
-        .header h1 {
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .gif-placeholder {
+            width: 128px;
+            height: 128px;
+            background: var(--bg-primary);
+            border: 2px solid var(--border-secondary);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+        }
+
+        .gif-placeholder:hover {
+            transform: scale(1.05);
+            border-color: var(--border-primary);
+        }
+
+        .gif-placeholder .emoji {
             font-size: 3rem;
-            font-weight: 700;
             margin-bottom: 10px;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            transition: var(--transition);
         }
 
-        .header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
+        .gif-placeholder:hover .emoji {
+            transform: scale(1.1);
         }
 
+        .gif-placeholder .label {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .main-title {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .theme-retro .main-title {
+            text-shadow: 0 0 20px currentColor;
+            animation: glitch 0.3s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 90%, 100% { transform: translate(0); }
+            10% { transform: translate(-1px, -1px); }
+            20% { transform: translate(1px, 1px); }
+            30% { transform: translate(-1px, 1px); }
+            40% { transform: translate(1px, -1px); }
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        /* Search */
         .search-container {
             position: relative;
             margin-bottom: 30px;
-            animation: fadeInUp 0.8s ease-out 0.2s both;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .search-box {
             width: 100%;
             padding: 15px 50px 15px 20px;
-            border: none;
-            border-radius: 25px;
+            border: 2px solid var(--border-secondary);
+            border-radius: 15px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             font-size: 1.1rem;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            color: white;
             outline: none;
-            transition: all 0.3s ease;
-        }
-
-        .search-box::placeholder {
-            color: rgba(255, 255, 255, 0.7);
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
         }
 
         .search-box:focus {
-            background: rgba(255, 255, 255, 0.25);
+            border-color: var(--border-primary);
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .theme-retro .search-box {
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.2);
         }
 
         .search-icon {
@@ -79,165 +270,260 @@
             right: 20px;
             top: 50%;
             transform: translateY(-50%);
-            color: rgba(255, 255, 255, 0.7);
+            color: var(--text-secondary);
             font-size: 1.2rem;
         }
 
+        /* Tabs */
         .tabs {
             display: flex;
             justify-content: center;
-            margin-bottom: 30px;
-            gap: 10px;
-            animation: fadeInUp 0.8s ease-out 0.4s both;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
         }
 
         .tab {
-            padding: 12px 24px;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            border-radius: 25px;
-            color: white;
+            padding: 15px 30px;
+            background: var(--bg-primary);
+            border: 2px solid var(--border-secondary);
+            border-radius: 15px;
+            color: var(--text-primary);
             cursor: pointer;
-            font-size: 1rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
             backdrop-filter: blur(10px);
         }
 
         .tab:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
+            border-color: var(--border-primary);
+            transform: translateY(-3px);
         }
 
         .tab.active {
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            background: var(--button-gradient);
+            color: white;
+            transform: translateY(-3px);
         }
 
+        .theme-day .tab.active {
+            color: white;
+        }
+
+        .theme-retro .tab.active {
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Content */
         .section {
             display: none;
-            animation: fadeIn 0.5s ease-in;
         }
 
         .section.active {
             display: block;
+            animation: fadeIn 0.5s ease-in;
         }
 
         .category {
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--bg-primary);
             backdrop-filter: blur(15px);
-            border-radius: 15px;
-            margin: 20px 0;
-            padding: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
+            border: 2px solid var(--border-secondary);
+            border-radius: 20px;
+            margin: 25px 0;
+            padding: 30px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
         }
 
         .category:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            border-color: var(--border-primary);
+        }
+
+        .theme-retro .category::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 255, 255, 0.03) 2px,
+                rgba(0, 255, 255, 0.03) 4px
+            );
+            pointer-events: none;
         }
 
         .category h3 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: #4ecdc4;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: var(--text-secondary);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .command-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 15px;
+            gap: 20px;
         }
 
         .command-item {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 15px;
-            border-left: 4px solid #4ecdc4;
-            transition: all 0.3s ease;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-secondary);
+            border-radius: 12px;
+            padding: 20px;
+            transition: var(--transition);
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
 
         .command-item:hover {
-            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--border-primary);
             transform: translateX(5px);
-            border-left-color: #ff6b6b;
+        }
+
+        .command-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .command-item:hover::before {
+            background: var(--border-primary);
         }
 
         .command-name {
             font-weight: 600;
-            margin-bottom: 5px;
-            color: #ffffff;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .command-code-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-secondary);
+            margin-top: 10px;
+        }
+
+        .theme-day .command-code-container {
+            background: rgba(0, 0, 0, 0.05);
         }
 
         .command-code {
             font-family: 'Courier New', monospace;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 8px 12px;
-            border-radius: 5px;
             font-size: 0.9rem;
-            color: #4ecdc4;
+            color: var(--text-accent);
+            font-weight: bold;
             word-break: break-all;
-            margin-top: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            flex: 1;
+            margin-right: 15px;
         }
 
         .copy-btn {
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            background: var(--button-gradient);
             border: none;
             color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
+            padding: 8px 12px;
+            border-radius: 6px;
             cursor: pointer;
             font-size: 0.8rem;
-            margin-left: 10px;
-            transition: all 0.3s ease;
+            font-weight: bold;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
         .copy-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
+        .theme-retro .copy-btn:hover {
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Toast */
         .toast {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            background: linear-gradient(45deg, #4ecdc4, #45b7d1);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) translateY(100px);
+            background: linear-gradient(45deg, #10b981, #059669);
             color: white;
             padding: 15px 25px;
             border-radius: 10px;
-            font-weight: 500;
-            z-index: 1000;
-            transform: translateX(400px);
-            transition: transform 0.3s ease;
+            font-weight: 600;
+            z-index: 2000;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            pointer-events: none;
         }
 
         .toast.show {
-            transform: translateX(0);
+            transform: translate(-50%, -50%);
+            opacity: 1;
         }
 
+        .theme-retro .toast {
+            border: 2px solid #10b981;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+        }
+
+        .no-results .icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .no-results .message {
+            font-size: 1.3rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Animations */
         @keyframes fadeInDown {
             from {
                 opacity: 0;
                 transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
             }
             to {
                 opacity: 1;
@@ -250,358 +536,275 @@
             to { opacity: 1; }
         }
 
-        .no-results {
-            text-align: center;
-            padding: 40px;
-            opacity: 0.7;
-            font-size: 1.1rem;
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .gif-placeholder {
+                width: 100px;
+                height: 100px;
+            }
+
+            .main-title {
+                font-size: 2.5rem;
+            }
+
+            .command-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                gap: 10px;
+            }
+
+            .tab {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
         }
 
-        @media (max-width: 768px) {
-            .header h1 { font-size: 2rem; }
-            .tabs { flex-wrap: wrap; }
-            .command-grid { grid-template-columns: 1fr; }
-            .category { padding: 15px; }
+        /* Hide elements on small screens */
+        @media (max-width: 1024px) {
+            .gif-placeholder {
+                display: none;
+            }
+
+            .header-content {
+                justify-content: center;
+            }
         }
     </style>
 </head>
-<body>
+<body class="theme-retro">
+    <div class="bg-effects"></div>
+    
+    <!-- Theme Selector -->
+    <div class="theme-selector">
+        <button class="theme-btn active" onclick="changeTheme('retro')" title="Tema Retrô">🎮</button>
+        <button class="theme-btn" onclick="changeTheme('dark')" title="Tema Escuro">🌙</button>
+        <button class="theme-btn" onclick="changeTheme('day')" title="Tema Dia">☀️</button>
+        <button class="theme-btn" onclick="changeTheme('pro')" title="Tema Pro">⚡</button>
+    </div>
+
     <div class="container">
+        <!-- Header -->
         <div class="header">
-            <h1>🚀 Central de Comandos</h1>
-            <p>Git • CMD • Executar Windows</p>
+            <div class="header-content">
+                <!-- GIF Placeholder 1 -->
+                <div class="gif-placeholder" onclick="showGifInfo('left')">
+                    <!-- Substitua por: <img src="seu-gif-1.gif" alt="GIF 1" style="width: 128px; height: 128px; border-radius: 15px; object-fit: cover;"> -->
+                    <div class="emoji">🎮</div>
+                    <div class="label">GIF SPACE<br>128x128px<br>LEFT</div>
+                </div>
+
+                <div>
+                    <h1 class="main-title">CENTRAL DE COMANDOS</h1>
+                    <div class="subtitle">
+                        <span style="color: var(--text-accent);">GIT</span>
+                        <span>•</span>
+                        <span style="color: var(--text-secondary);">CMD</span>
+                        <span>•</span>
+                        <span style="color: var(--border-primary);">RUN</span>
+                    </div>
+                </div>
+
+                <!-- GIF Placeholder 2 -->
+                <div class="gif-placeholder" onclick="showGifInfo('right')">
+                    <!-- Substitua por: <img src="seu-gif-2.gif" alt="GIF 2" style="width: 128px; height: 128px; border-radius: 15px; object-fit: cover;"> -->
+                    <div class="emoji">⚡</div>
+                    <div class="label">GIF SPACE<br>128x128px<br>RIGHT</div>
+                </div>
+            </div>
         </div>
 
+        <!-- Search -->
         <div class="search-container">
             <input type="text" id="searchBox" class="search-box" placeholder="Buscar comandos... (ex: git, calc, regedit)">
             <span class="search-icon">🔍</span>
         </div>
 
+        <!-- Tabs -->
         <div class="tabs">
-            <button class="tab active" onclick="showSection('git')">🧠 Git</button>
-            <button class="tab" onclick="showSection('cmd')">💻 CMD</button>
-            <button class="tab" onclick="showSection('executar')">⚙️ Executar</button>
+            <button class="tab active" onclick="showSection('git')">
+                <span>🧠</span> GIT
+            </button>
+            <button class="tab" onclick="showSection('cmd')">
+                <span>💻</span> CMD
+            </button>
+            <button class="tab" onclick="showSection('executar')">
+                <span>⚙️</span> RUN
+            </button>
         </div>
 
+        <!-- Git Section -->
         <div id="git" class="section active">
             <div class="category">
-                <h3>⚙️ Inicialização e Configuração</h3>
+                <h3><span>⚙️</span> INIT & CONFIG</h3>
                 <div class="command-grid">
                     <div class="command-item">
                         <div class="command-name">Iniciar repositório local</div>
-                        <div class="command-code">git init <button class="copy-btn" onclick="copyCommand('git init')">📋</button></div>
+                        <div class="command-code-container">
+                            <code class="command-code">git init</code>
+                            <button class="copy-btn" onclick="copyCommand('git init')">📋 COPY</button>
+                        </div>
                     </div>
                     <div class="command-item">
                         <div class="command-name">Clonar repositório remoto</div>
-                        <div class="command-code">git clone &lt;url&gt; <button class="copy-btn" onclick="copyCommand('git clone <url>')">📋</button></div>
+                        <div class="command-code-container">
+                            <code class="command-code">git clone &lt;url&gt;</code>
+                            <button class="copy-btn" onclick="copyCommand('git clone <url>')">📋 COPY</button>
+                        </div>
                     </div>
                     <div class="command-item">
                         <div class="command-name">Configurar nome de usuário</div>
-                        <div class="command-code">git config --global user.name "Seu Nome" <button class="copy-btn" onclick="copyCommand('git config --global user.name \"Seu Nome\"')">📋</button></div>
+                        <div class="command-code-container">
+                            <code class="command-code">git config --global user.name "Seu Nome"</code>
+                            <button class="copy-btn" onclick="copyCommand('git config --global user.name \"Seu Nome\"')">📋 COPY</button>
+                        </div>
                     </div>
                     <div class="command-item">
                         <div class="command-name">Configurar e-mail</div>
-                        <div class="command-code">git config --global user.email "email@exemplo.com" <button class="copy-btn" onclick="copyCommand('git config --global user.email \"email@exemplo.com\"')">📋</button></div>
+                        <div class="command-code-container">
+                            <code class="command-code">git config --global user.email "email@exemplo.com"</code>
+                            <button class="copy-btn" onclick="copyCommand('git config --global user.email \"email@exemplo.com\"')">📋 COPY</button>
+                        </div>
                     </div>
                     <div class="command-item">
                         <div class="command-name">Ver configurações atuais</div>
-                        <div class="command-code">git config --list <button class="copy-btn" onclick="copyCommand('git config --list')">📋</button></div>
+                        <div class="command-code-container">
+                            <code class="command-code">git config --list</code>
+                            <button class="copy-btn" onclick="copyCommand('git config --list')">📋 COPY</button>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="category">
-                <h3>🔍 Status e Histórico</h3>
+                <h3><span>🔍</span> STATUS & LOG</h3>
                 <div class="command-grid">
                     <div class="command-item">
                         <div class="command-name">Ver status dos arquivos</div>
-                        <div class="command-code">git status <button class="copy-btn" onclick="copyCommand('git status')">📋</button></div>
+                        <div class="command-code-container">
+                            <code class="command-code">git status</code>
+                            <button class="copy-btn" onclick="copyCommand('git status')">📋 COPY</button>
+                        </div>
                     </div>
                     <div class="command-item">
                         <div class="command-name">Ver histórico de commits</div>
-                        <div class="command-code">git log <button class="copy-btn" onclick="copyCommand('git log')">📋</button></div>
+                        <div class="command-code-container">
+                            <code class="command-code">git log</code>
+                            <button class="copy-btn" onclick="copyCommand('git log')">📋 COPY</button>
+                        </div>
                     </div>
                     <div class="command-item">
-                        <div class="command-name">Ver histórico resumido (um por linha)</div>
-                        <div class="command-code">git log --oneline <button class="copy-btn" onclick="copyCommand('git log --oneline')">📋</button></div>
+                        <div class="command-name">Ver histórico resumido</div>
+                        <div class="command-code-container">
+                            <code class="command-code">git log --oneline</code>
+                            <button class="copy-btn" onclick="copyCommand('git log --oneline')">📋 COPY</button>
+                        </div>
                     </div>
                     <div class="command-item">
-                        <div class="command-name">Ver diferenças em arquivos modificados</div>
-                        <div class="command-code">git diff <button class="copy-btn" onclick="copyCommand('git diff')">📋</button></div>
+                        <div class="command-name">Ver diferenças em arquivos</div>
+                        <div class="command-code-container">
+                            <code class="command-code">git diff</code>
+                            <button class="copy-btn" onclick="copyCommand('git diff')">📋 COPY</button>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="category">
-                <h3>📝 Trabalhando com Commits</h3>
+                <h3><span>📝</span> COMMITS</h3>
                 <div class="command-grid">
                     <div class="command-item">
                         <div class="command-name">Adicionar arquivo ao staging</div>
-                        <div class="command-code">git add &lt;arquivo&gt; <button class="copy-btn" onclick="copyCommand('git add <arquivo>')">📋</button></div>
+                        <div class="command-code-container">
+                            <code class="command-code">git add &lt;arquivo&gt;</code>
+                            <button class="copy-btn" onclick="copyCommand('git add <arquivo>')">📋 COPY</button>
+                        </div>
                     </div>
                     <div class="command-item">
-                        <div class="command-name">Adicionar todos os arquivos modificados</div>
-                        <div class="command-code">git add . <button class="copy-btn" onclick="copyCommand('git add .')">📋</button></div>
+                        <div class="command-name">Adicionar todos os arquivos</div>
+                        <div class="command-code-container">
+                            <code class="command-code">git add .</code>
+                            <button class="copy-btn" onclick="copyCommand('git add .')">📋 COPY</button>
+                        </div>
                     </div>
                     <div class="command-item">
                         <div class="command-name">Criar commit com mensagem</div>
-                        <div class="command-code">git commit -m "mensagem" <button class="copy-btn" onclick="copyCommand('git commit -m \"mensagem\"')">📋</button></div>
+                        <div class="command-code-container">
+                            <code class="command-code">git commit -m "mensagem"</code>
+                            <button class="copy-btn" onclick="copyCommand('git commit -m \"mensagem\"')">📋 COPY</button>
+                        </div>
                     </div>
                     <div class="command-item">
-                        <div class="command-name">Editar o último commit (mensagem)</div>">📋</button></div>
+                        <div class="command-name">Editar o último commit</div>
+                        <div class="command-code-container">
+                            <code class="command-code">git commit --amend</code>
+                            <button class="copy-btn" onclick="copyCommand('git commit --amend')">📋 COPY</button>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="category">
-                <h3>🌿 Branches (Ramificações)</h3>
+                <h3><span>🌿</span> BRANCHES</h3>
                 <div class="command-grid">
                     <div class="command-item">
                         <div class="command-name">Criar nova branch</div>
-                        <div class="command-code">git branch &lt;nome-da-branch&gt; <button class="copy-btn" onclick="copyCommand('git branch <nome-da-branch>')">📋</button></div>
+                        <div class="command-code-container">
+                            <code class="command-code">git branch &lt;nome-da-branch&gt;</code>
+                            <button class="copy-btn" onclick="copyCommand('git branch <nome-da-branch>')">📋 COPY</button>
+                        </div>
                     </div>
                     <div class="command-item">
                         <div class="command-name">Mudar para outra branch</div>
-                        <div class="command-code">git checkout &lt;nome-da-branch&gt; <button class="copy-btn" onclick="copyCommand('git checkout <nome-da-branch>')">📋</button></div>
+                        <div class="command-code-container">
+                            <code class="command-code">git checkout &lt;nome-da-branch&gt;</code>
+                            <button class="copy-btn" onclick="copyCommand('git checkout <nome-da-branch>')">📋 COPY</button>
+                        </div>
                     </div>
                     <div class="command-item">
                         <div class="command-name">Criar e mudar para nova branch</div>
-                        <div class="command-code">git checkout -b &lt;nome-da-branch&gt; <button class="copy-btn" onclick="copyCommand('git checkout -b <nome-da-branch>')">📋</button></div>
+                        <div class="command-code-container">
+                            <code class="command-code">git checkout -b &lt;nome-da-branch&gt;</code>
+                            <button class="copy-btn" onclick="copyCommand('git checkout -b <nome-da-branch>')">📋 COPY</button>
+                        </div>
                     </div>
                     <div class="command-item">
                         <div class="command-name">Listar todas as branches</div>
-                        <div class="command-code">git branch <button class="copy-btn" onclick="copyCommand('git branch')">📋</button></div>
+                        <div class="command-code-container">
+                            <code class="command-code">git branch</code>
+                            <button class="copy-btn" onclick="copyCommand('git branch')">📋 COPY</button>
+                        </div>
                     </div>
                     <div class="command-item">
                         <div class="command-name">Excluir branch local</div>
-                        <div class="command-code">git branch -d &lt;nome-da-branch&gt; <button class="copy-btn" onclick="copyCommand('git branch -d <nome-da-branch>')">📋</button></div>
+                        <div class="command-code-container">
+                            <code class="command-code">git branch -d &lt;nome-da-branch&gt;</code>
+                            <button class="copy-btn" onclick="copyCommand('git branch -d <nome-da-branch>')">📋 COPY</button>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="category">
-                <h3>🔀 Merge e Rebase</h3>
-                <div class="command-grid">
-                    <div class="command-item">
-                        <div class="command-name">Mesclar branch na atual</div>
-                        <div class="command-code">git merge &lt;nome-da-branch&gt; <button class="copy-btn" onclick="copyCommand('git merge <nome-da-branch>')">📋</button></div>
-                    </div>
-                    <div class="command-item">
-                        <div class="command-name">Rebase da branch atual</div>
-                        <div class="command-code">git rebase &lt;branch-base&gt; <button class="copy-btn" onclick="copyCommand('git rebase <branch-base>')">📋</button></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="category">
-                <h3>🌐 Repositório Remoto</h3>
+                <h3><span>🌐</span> REMOTE</h3>
                 <div class="command-grid">
                     <div class="command-item">
                         <div class="command-name">Adicionar repositório remoto</div>
-                        <div class="command-code">git remote add origin &lt;url&gt; <button class="copy-btn" onclick="copyCommand('git remote add origin <url>')">📋</button></div>
+                        <div class="command-code-container">
+                            <code class="command-code">git remote add origin &lt;url&gt;</code>
+                            <button class="copy-btn" onclick="copyCommand('git remote add origin <url>')">📋 COPY</button>
+                        </div>
                     </div>
                     <div class="command-item">
                         <div class="command-name">Ver remotos configurados</div>
-                        <div class="command-code">git remote -v <button class="copy-btn" onclick="copyCommand('git remote -v')">📋</button></div>
+                        <div class="command-code-container">
+                            <code class="command-code">git remote -v</code>
+                            <button class="copy-btn" onclick="copyCommand('git remote -v')">📋 COPY</button>
+                        </div>
                     </div>
-                    <div class="command-item">
-                        <div class="command-name">Enviar alterações para remoto</div>
-                        <div class="command-code">git push origin &lt;branch&gt; <button class="copy-btn" onclick="copyCommand('git push origin <branch>')">📋</button></div>
-                    </div>
-                    <div class="command-item">
-                        <div class="command-name">Buscar alterações remotas</div>
-                        <div class="command-code">git fetch <button class="copy-btn" onclick="copyCommand('git fetch')">📋</button></div>
-                    </div>
-                    <div class="command-item">
-                        <div class="command-name">Atualizar branch local</div>
-                        <div class="command-code">git pull <button class="copy-btn" onclick="copyCommand('git pull')">📋</button></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="category">
-                <h3>♻️ Restauração e Reset</h3>
-                <div class="command-grid">
-                    <div class="command-item">
-                        <div class="command-name">Desfazer alterações não comitadas</div>
-                        <div class="command-code">git restore &lt;arquivo&gt; <button class="copy-btn" onclick="copyCommand('git restore <arquivo>')">📋</button></div>
-                    </div>
-                    <div class="command-item">
-                        <div class="command-name">Remover arquivo do staging</div>
-                        <div class="command-code">git restore --staged &lt;arquivo&gt; <button class="copy-btn" onclick="copyCommand('git restore --staged <arquivo>')">📋</button></div>
-                    </div>
-                    <div class="command-item">
-                        <div class="command-name">Resetar commit anterior (mantendo alterações)</div>
-                        <div class="command-code">git reset --soft HEAD~1 <button class="copy-btn" onclick="copyCommand('git reset --soft HEAD~1')">📋</button></div>
-                    </div>
-                    <div class="command-item">
-                        <div class="command-name">Resetar e apagar alterações</div>
-                        <div class="command-code">git reset --hard HEAD~1 <button class="copy-btn" onclick="copyCommand('git reset --hard HEAD~1')">📋</button></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="category">
-                <h3>🧳 Stash (Guardar alterações temporárias)</h3>
-                <div class="command-grid">
-                    <div class="command-item">
-                        <div class="command-name">Guardar alterações temporariamente</div>
-                        <div class="command-code">git stash <button class="copy-btn" onclick="copyCommand('git stash')">📋</button></div>
-                    </div>
-                    <div class="command-item">
-                        <div class="command-name">Listar alterações guardadas</div>
-                        <div class="command-code">git stash list <button class="copy-btn" onclick="copyCommand('git stash list')">📋</button></div>
-                    </div>
-                    <div class="command-item">
-                        <div class="command-name">Aplicar stash mais recente</div>
-                        <div class="command-code">git stash apply <button class="copy-btn" onclick="copyCommand('git stash apply')">📋</button></div>
-                    </div>
-                    <div class="command-item">
-                        <div class="command-name">Remover stash mais recente</div>
-                        <div class="command-code">git stash drop <button class="copy-btn" onclick="copyCommand('git stash drop')">📋</button></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="category">
-                <h3>📦 Submódulos</h3>
-                <div class="command-grid">
-                    <div class="command-item">
-                        <div class="command-name">Adicionar submódulo</div>
-                        <div class="command-code">git submodule add &lt;url&gt; <button class="copy-btn" onclick="copyCommand('git submodule add <url>')">📋</button></div>
-                    </div>
-                    <div class="command-item">
-                        <div class="command-name">Inicializar submódulos</div>
-                        <div class="command-code">git submodule init <button class="copy-btn" onclick="copyCommand('git submodule init')">📋</button></div>
-                    </div>
-                    <div class="command-item">
-                        <div class="command-name">Atualizar submódulos</div>
-                        <div class="command-code">git submodule update <button class="copy-btn" onclick="copyCommand('git submodule update')">📋</button></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="cmd" class="section">
-            <div class="category">
-                <h3>💻 Comandos CMD</h3>
-                <div class="command-grid">
-                    <div class="command-item">
-                        <div class="command-name">Linha de comandos</div>
-                        <div class="command-code">cmd <button class="copy-btn" onclick="copyCommand('cmd')">📋</button></div>
-                    </div>
-                    <div class="command-item">
-                        <div class="command-name">Configuração do IP</div>
-                        <div class="command-code">ipconfig <button class="copy-btn" onclick="copyCommand('ipconfig')">📋</button></div>
-                    </div>
-                    <div class="command-item">
-                        <div class="command-name">Ver todas as configurações IP</div>
-                        <div class="command-code">ipconfig /all <button class="copy-btn" onclick="copyCommand('ipconfig /all')">📋</button></div>
-                    </div>
-                    <div class="command-item">
-                        <div class="command-name">Limpar DNS</div>
-                        <div class="command-code">ipconfig /flushdns <button class="copy-btn" onclick="copyCommand('ipconfig /flushdns')">📋</button></div>
-                    </div>
-                    <div class="command-item">
-                        <div class="command-name">Ver DNS</div>
-                        <div class="command-code">ipconfig /displaydns <button class="copy-btn" onclick="copyCommand('ipconfig /displaydns')">📋</button></div>
-                    </div>
-                    <div class="command-item">
-                        <div class="command-name">Liberar conexões</div>
-                        <div class="command-code">ipconfig /release <button class="copy-btn" onclick="copyCommand('ipconfig /release')">📋</button></div>
-                    </div>
-                    <div class="command-item">
-                        <div class="command-name">Verificação do disco</div>
-                        <div class="command-code">chkdsk <button class="copy-btn" onclick="copyCommand('chkdsk')">📋</button></div>
-                    </div>
-                    <div class="command-item">
-                        <div class="command-name">Verificação de arquivos do sistema</div>
-                        <div class="command-code">sfc /scannow <button class="copy-btn" onclick="copyCommand('sfc /scannow')">📋</button></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="executar" class="section">
-            <div class="category">
-                <h3>🖥️ Aplicativos e Utilitários</h3>
-                <div class="command-grid">
-                    <div class="command-item">
-                        <div class="command-name">Calculadora</div>
-                        <div class="command-code">calc <button class="copy-btn" onclick="copyCommand('calc')">📋</button></div>
-                    </div>
-                    <div class="command-item">
-                        <div class="command-name">Notepad</div>
-                        <div class="command-code">notepad <button class="copy-btn" onclick="copyCommand('notepad')">📋</button></div>
-                    </div>
-                    <div class="command-item">
-                        <div class="command-name">Paint</div>
-                        <div class="command-code">mspaint <button class="copy-btn" onclick="copyCommand('mspaint')">📋</button></div>
-                    </div>
-                    <div class="command-item">
-                        <div class="command-name">Windows Media Player</div>
-                        <div class="command-code">wmplayer <button class="copy-btn" onclick="copyCommand('wmplayer')">📋</button></div>
-                    </div>
-                    <div class="command-item">
-                        <div class="command-name">Internet Explorer</div>
-                        <div class="command-code">iexplore <button class="copy-btn" onclick="copyCommand('iexplore')">📋</button></div>
-                    </div>
-                    <div class="command-item">
-                        <div class="command-name">Explorador do Windows</div>
-                        <div class="command-code">explorer <button class="copy-btn" onclick="copyCommand('explorer')">📋</button></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="category">
-                <h3>⚙️ Configurações do Sistema</h3>
-                <div class="command-grid">
-                    <div class="command-item">
-                        <div class="command-name">Painel de Controle</div>
-                        <div class="command-code">control <button class="copy-btn" onclick="copyCommand('control')">📋</button></div>
-                    </div>
-                    <div class="command-item">
-                        <div class="command-name">Propriedades do Sistema</div>
-                        <div class="command-code">sysdm.cpl <button class="copy-btn" onclick="copyCommand('sysdm.cpl')">📋</button></div>
-                    </div>
-                    <div class="command-item">
-                        <div class="command-name">Gerenciador de Dispositivos</div>
-                        <div class="command-code">devmgmt.msc <button class="copy-btn" onclick="copyCommand('devmgmt.msc')">📋</button></div>
-                    </div>
-                    <div class="command-item">
-                        <div class="command-name">Editor de Registro</div>
-                        <div class="command-code">regedit <button class="copy-btn" onclick="copyCommand('regedit')">📋</button></div>
-                    </div>
-                    <div class="command-item">
-                        <div class="command-name">Configuração do Sistema</div>
-                        <div class="command-code">msconfig <button class="copy-btn" onclick="copyCommand('msconfig')">📋</button></div>
-                    </div>
-                    <div class="command-item">
-                        <div class="command-name">Informações do Sistema</div>
-                        <div class="command-code">msinfo32 <button class="copy-btn" onclick="copyCommand('msinfo32')">📋</button></div>
-                    </div>
-                    <div class="command-item">
-                        <div class="command-name">Gerenciador de Tarefas</div>
-                        <div class="command-code">taskmgr <button class="copy-btn" onclick="copyCommand('taskmgr')">📋</button></div>
-                    </div>
-                    <div class="command-item">
-                        <div class="command-name">Serviços</div>
-                        <div class="command-code">services.msc <button class="copy-btn" onclick="copyCommand('services.msc')">📋</button></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="category">
-                <h3>🌐 Rede e Internet</h3>
-                <div class="command-grid">
-                    <div class="command-item">
-                        <div class="command-name">Propriedades da Internet</div>
-                        <div class="command-code">inetcpl.cpl <button class="copy-btn" onclick="copyCommand('inetcpl.cpl')">📋</button></div>
-                    </div>
-                    <div class="command-item">
-                        <div class="command-name">Conexões de Rede</div>
-                        <div class="command-code">ncpa.cpl <button class="copy-btn" onclick="copyCommand('ncpa.cpl')">📋</button></div>
-                    </div>
-                    <div class="command-item">
-                        <div class="command-name">Firewall do Windows</div>
-                        <div class="command-code">firewall.cpl <button class="copy-btn" onclick="copyCommand('firewall.cpl')">📋</button></div>
