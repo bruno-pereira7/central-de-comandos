@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central de Comandos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .search-container {
+            position: relative;
+            margin-bottom: 30px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            color: white;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-box::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .search-box:focus {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.2rem;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            gap: 10px;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .tab {
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .tab:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .tab.active {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .category {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            margin: 20px 0;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .category h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #4ecdc4;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .command-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 15px;
+        }
+
+        .command-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            border-left: 4px solid #4ecdc4;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .command-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+            border-left-color: #ff6b6b;
+        }
+
+        .command-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #ffffff;
+        }
+
+        .command-code {
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            color: #4ecdc4;
+            word-break: break-all;
+            margin-top: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .copy-btn {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #4ecdc4, #45b7d1);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-weight: 500;
+            z-index: 1000;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            opacity: 0.7;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2rem; }
+            .tabs { flex-wrap: wrap; }
+            .command-grid { grid-template-columns: 1fr; }
+            .category { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Central de Comandos</h1>
+            <p>Git • CMD • Executar Windows</p>
+        </div>
+
+        <div class="search-container">
+            <input type="text" id="searchBox" class="search-box" placeholder="Buscar comandos... (ex: git, calc, regedit)">
+            <span class="search-icon">🔍</span>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showSection('git')">🧠 Git</button>
+            <button class="tab" onclick="showSection('cmd')">💻 CMD</button>
+            <button class="tab" onclick="showSection('executar')">⚙️ Executar</button>
+        </div>
+
+        <div id="git" class="section active">
+            <div class="category">
+                <h3>⚙️ Inicialização e Configuração</h3>
+                <div class="command-grid">
+                    <div class="command-item">
+                        <div class="command-name">Iniciar repositório local</div>
+                        <div class="command-code">git init <button class="copy-btn" onclick="copyCommand('git init')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Clonar repositório remoto</div>
+                        <div class="command-code">git clone &lt;url&gt; <button class="copy-btn" onclick="copyCommand('git clone <url>')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Configurar nome de usuário</div>
+                        <div class="command-code">git config --global user.name "Seu Nome" <button class="copy-btn" onclick="copyCommand('git config --global user.name \"Seu Nome\"')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Configurar e-mail</div>
+                        <div class="command-code">git config --global user.email "email@exemplo.com" <button class="copy-btn" onclick="copyCommand('git config --global user.email \"email@exemplo.com\"')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Ver configurações atuais</div>
+                        <div class="command-code">git config --list <button class="copy-btn" onclick="copyCommand('git config --list')">📋</button></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category">
+                <h3>🔍 Status e Histórico</h3>
+                <div class="command-grid">
+                    <div class="command-item">
+                        <div class="command-name">Ver status dos arquivos</div>
+                        <div class="command-code">git status <button class="copy-btn" onclick="copyCommand('git status')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Ver histórico de commits</div>
+                        <div class="command-code">git log <button class="copy-btn" onclick="copyCommand('git log')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Ver histórico resumido (um por linha)</div>
+                        <div class="command-code">git log --oneline <button class="copy-btn" onclick="copyCommand('git log --oneline')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Ver diferenças em arquivos modificados</div>
+                        <div class="command-code">git diff <button class="copy-btn" onclick="copyCommand('git diff')">📋</button></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category">
+                <h3>📝 Trabalhando com Commits</h3>
+                <div class="command-grid">
+                    <div class="command-item">
+                        <div class="command-name">Adicionar arquivo ao staging</div>
+                        <div class="command-code">git add &lt;arquivo&gt; <button class="copy-btn" onclick="copyCommand('git add <arquivo>')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Adicionar todos os arquivos modificados</div>
+                        <div class="command-code">git add . <button class="copy-btn" onclick="copyCommand('git add .')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Criar commit com mensagem</div>
+                        <div class="command-code">git commit -m "mensagem" <button class="copy-btn" onclick="copyCommand('git commit -m \"mensagem\"')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Editar o último commit (mensagem)</div>">📋</button></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category">
+                <h3>🌿 Branches (Ramificações)</h3>
+                <div class="command-grid">
+                    <div class="command-item">
+                        <div class="command-name">Criar nova branch</div>
+                        <div class="command-code">git branch &lt;nome-da-branch&gt; <button class="copy-btn" onclick="copyCommand('git branch <nome-da-branch>')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Mudar para outra branch</div>
+                        <div class="command-code">git checkout &lt;nome-da-branch&gt; <button class="copy-btn" onclick="copyCommand('git checkout <nome-da-branch>')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Criar e mudar para nova branch</div>
+                        <div class="command-code">git checkout -b &lt;nome-da-branch&gt; <button class="copy-btn" onclick="copyCommand('git checkout -b <nome-da-branch>')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Listar todas as branches</div>
+                        <div class="command-code">git branch <button class="copy-btn" onclick="copyCommand('git branch')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Excluir branch local</div>
+                        <div class="command-code">git branch -d &lt;nome-da-branch&gt; <button class="copy-btn" onclick="copyCommand('git branch -d <nome-da-branch>')">📋</button></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category">
+                <h3>🔀 Merge e Rebase</h3>
+                <div class="command-grid">
+                    <div class="command-item">
+                        <div class="command-name">Mesclar branch na atual</div>
+                        <div class="command-code">git merge &lt;nome-da-branch&gt; <button class="copy-btn" onclick="copyCommand('git merge <nome-da-branch>')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Rebase da branch atual</div>
+                        <div class="command-code">git rebase &lt;branch-base&gt; <button class="copy-btn" onclick="copyCommand('git rebase <branch-base>')">📋</button></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category">
+                <h3>🌐 Repositório Remoto</h3>
+                <div class="command-grid">
+                    <div class="command-item">
+                        <div class="command-name">Adicionar repositório remoto</div>
+                        <div class="command-code">git remote add origin &lt;url&gt; <button class="copy-btn" onclick="copyCommand('git remote add origin <url>')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Ver remotos configurados</div>
+                        <div class="command-code">git remote -v <button class="copy-btn" onclick="copyCommand('git remote -v')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Enviar alterações para remoto</div>
+                        <div class="command-code">git push origin &lt;branch&gt; <button class="copy-btn" onclick="copyCommand('git push origin <branch>')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Buscar alterações remotas</div>
+                        <div class="command-code">git fetch <button class="copy-btn" onclick="copyCommand('git fetch')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Atualizar branch local</div>
+                        <div class="command-code">git pull <button class="copy-btn" onclick="copyCommand('git pull')">📋</button></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category">
+                <h3>♻️ Restauração e Reset</h3>
+                <div class="command-grid">
+                    <div class="command-item">
+                        <div class="command-name">Desfazer alterações não comitadas</div>
+                        <div class="command-code">git restore &lt;arquivo&gt; <button class="copy-btn" onclick="copyCommand('git restore <arquivo>')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Remover arquivo do staging</div>
+                        <div class="command-code">git restore --staged &lt;arquivo&gt; <button class="copy-btn" onclick="copyCommand('git restore --staged <arquivo>')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Resetar commit anterior (mantendo alterações)</div>
+                        <div class="command-code">git reset --soft HEAD~1 <button class="copy-btn" onclick="copyCommand('git reset --soft HEAD~1')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Resetar e apagar alterações</div>
+                        <div class="command-code">git reset --hard HEAD~1 <button class="copy-btn" onclick="copyCommand('git reset --hard HEAD~1')">📋</button></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category">
+                <h3>🧳 Stash (Guardar alterações temporárias)</h3>
+                <div class="command-grid">
+                    <div class="command-item">
+                        <div class="command-name">Guardar alterações temporariamente</div>
+                        <div class="command-code">git stash <button class="copy-btn" onclick="copyCommand('git stash')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Listar alterações guardadas</div>
+                        <div class="command-code">git stash list <button class="copy-btn" onclick="copyCommand('git stash list')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Aplicar stash mais recente</div>
+                        <div class="command-code">git stash apply <button class="copy-btn" onclick="copyCommand('git stash apply')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Remover stash mais recente</div>
+                        <div class="command-code">git stash drop <button class="copy-btn" onclick="copyCommand('git stash drop')">📋</button></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category">
+                <h3>📦 Submódulos</h3>
+                <div class="command-grid">
+                    <div class="command-item">
+                        <div class="command-name">Adicionar submódulo</div>
+                        <div class="command-code">git submodule add &lt;url&gt; <button class="copy-btn" onclick="copyCommand('git submodule add <url>')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Inicializar submódulos</div>
+                        <div class="command-code">git submodule init <button class="copy-btn" onclick="copyCommand('git submodule init')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Atualizar submódulos</div>
+                        <div class="command-code">git submodule update <button class="copy-btn" onclick="copyCommand('git submodule update')">📋</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="cmd" class="section">
+            <div class="category">
+                <h3>💻 Comandos CMD</h3>
+                <div class="command-grid">
+                    <div class="command-item">
+                        <div class="command-name">Linha de comandos</div>
+                        <div class="command-code">cmd <button class="copy-btn" onclick="copyCommand('cmd')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Configuração do IP</div>
+                        <div class="command-code">ipconfig <button class="copy-btn" onclick="copyCommand('ipconfig')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Ver todas as configurações IP</div>
+                        <div class="command-code">ipconfig /all <button class="copy-btn" onclick="copyCommand('ipconfig /all')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Limpar DNS</div>
+                        <div class="command-code">ipconfig /flushdns <button class="copy-btn" onclick="copyCommand('ipconfig /flushdns')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Ver DNS</div>
+                        <div class="command-code">ipconfig /displaydns <button class="copy-btn" onclick="copyCommand('ipconfig /displaydns')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Liberar conexões</div>
+                        <div class="command-code">ipconfig /release <button class="copy-btn" onclick="copyCommand('ipconfig /release')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Verificação do disco</div>
+                        <div class="command-code">chkdsk <button class="copy-btn" onclick="copyCommand('chkdsk')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Verificação de arquivos do sistema</div>
+                        <div class="command-code">sfc /scannow <button class="copy-btn" onclick="copyCommand('sfc /scannow')">📋</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="executar" class="section">
+            <div class="category">
+                <h3>🖥️ Aplicativos e Utilitários</h3>
+                <div class="command-grid">
+                    <div class="command-item">
+                        <div class="command-name">Calculadora</div>
+                        <div class="command-code">calc <button class="copy-btn" onclick="copyCommand('calc')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Notepad</div>
+                        <div class="command-code">notepad <button class="copy-btn" onclick="copyCommand('notepad')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Paint</div>
+                        <div class="command-code">mspaint <button class="copy-btn" onclick="copyCommand('mspaint')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Windows Media Player</div>
+                        <div class="command-code">wmplayer <button class="copy-btn" onclick="copyCommand('wmplayer')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Internet Explorer</div>
+                        <div class="command-code">iexplore <button class="copy-btn" onclick="copyCommand('iexplore')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Explorador do Windows</div>
+                        <div class="command-code">explorer <button class="copy-btn" onclick="copyCommand('explorer')">📋</button></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category">
+                <h3>⚙️ Configurações do Sistema</h3>
+                <div class="command-grid">
+                    <div class="command-item">
+                        <div class="command-name">Painel de Controle</div>
+                        <div class="command-code">control <button class="copy-btn" onclick="copyCommand('control')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Propriedades do Sistema</div>
+                        <div class="command-code">sysdm.cpl <button class="copy-btn" onclick="copyCommand('sysdm.cpl')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Gerenciador de Dispositivos</div>
+                        <div class="command-code">devmgmt.msc <button class="copy-btn" onclick="copyCommand('devmgmt.msc')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Editor de Registro</div>
+                        <div class="command-code">regedit <button class="copy-btn" onclick="copyCommand('regedit')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Configuração do Sistema</div>
+                        <div class="command-code">msconfig <button class="copy-btn" onclick="copyCommand('msconfig')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Informações do Sistema</div>
+                        <div class="command-code">msinfo32 <button class="copy-btn" onclick="copyCommand('msinfo32')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Gerenciador de Tarefas</div>
+                        <div class="command-code">taskmgr <button class="copy-btn" onclick="copyCommand('taskmgr')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Serviços</div>
+                        <div class="command-code">services.msc <button class="copy-btn" onclick="copyCommand('services.msc')">📋</button></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category">
+                <h3>🌐 Rede e Internet</h3>
+                <div class="command-grid">
+                    <div class="command-item">
+                        <div class="command-name">Propriedades da Internet</div>
+                        <div class="command-code">inetcpl.cpl <button class="copy-btn" onclick="copyCommand('inetcpl.cpl')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Conexões de Rede</div>
+                        <div class="command-code">ncpa.cpl <button class="copy-btn" onclick="copyCommand('ncpa.cpl')">📋</button></div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">Firewall do Windows</div>
+                        <div class="command-code">firewall.cpl <button class="copy-btn" onclick="copyCommand('firewall.cpl')">📋</button></div>
