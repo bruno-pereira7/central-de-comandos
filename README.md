@@ -196,15 +196,11 @@
 - [Utilitários Avançados](#utilitários-avançados)
 - [Outros Comandos Úteis](#outros-comandos-úteis)
 
----
-
 ### ❓ Acesso e Ajuda
 
 - **Abrir o CMD:** `Win + R`, digite `cmd`, pressione `Enter`
 - **Ajuda de um comando:** `<comando> /?`
 - **Listar todos os comandos disponíveis:** `help`
-
----
 
 ### 📂 Navegação no Sistema
 
@@ -214,7 +210,6 @@
 - **Listar arquivos e pastas:** `dir`
 - **Limpar tela:** `cls`
 
----
 
 ### 📁 Manipulação de Arquivos e Pastas
 
@@ -227,7 +222,6 @@
 - **Excluir arquivo:** `del <arquivo>`
 - **Excluir pasta e conteúdo:** `rmdir /s <pasta>`
 
----
 
 ### 🌐 Rede e Conexões
 
@@ -238,7 +232,6 @@
 - **Ver conexões de rede ativas:** `netstat`
 - **Ver tabela de roteamento:** `route print`
 
----
 
 ### 🖥 Sistema e Informações
 
@@ -249,7 +242,6 @@
 - **Desligar o computador:** `shutdown /s /t 0`
 - **Reiniciar o computador:** `shutdown /r /t 0`
 
----
 
 ### 🧰 Utilitários Avançados
 
@@ -261,7 +253,6 @@
 - **Gerenciamento de Disco:** `diskmgmt.msc`
 - **Gerenciamento de Computador:** `compmgmt.msc`
 
----
 
 ### 🛠 Outros Comandos Úteis
 
