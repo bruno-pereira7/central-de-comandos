@@ -4,11 +4,11 @@
 
 - [Comandos Docker](#-comandos-docker)
 - [Comandos Git](#-comandos-git)
-- [Comandos Executar](#-comandos-executar)
-
+- [Comandos Executar](#comandos-executar)
 ---
 
 ## 🐳 Comandos Docker
+[Voltar ao Início](#central-de-comandos)
 
 ### Sumário
 
@@ -94,6 +94,8 @@
 
 
 ## 🧠 Comandos Git
+
+[Voltar ao Início](#central-de-comandos)
 
 ### Sumário
 
@@ -181,11 +183,13 @@
 ---
 
 ## Comandos CMD
-
+[Voltar ao Início](#central-de-comandos)
 
 ---
 
 ## Comandos Executar
+[Voltar ao Início](#central-de-comandos)
+
 
 - Abre filtro AC3 (se instalado) = ac3filter.cpl
 
