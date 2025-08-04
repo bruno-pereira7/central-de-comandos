@@ -4,6 +4,7 @@
 
 - [Comandos Docker](#-comandos-docker)
 - [Comandos Git](#-comandos-git)
+- [Comandos CMD](#-comandos-cmd-prompt-de-comando)
 - [Comandos Executar](#comandos-executar)
 ---
 
@@ -182,10 +183,99 @@
 
 ---
 
-## Comandos CMD
+## 💻 Comandos CMD (Prompt de Comando)
 [Voltar ao Início](#central-de-comandos)
 
+### Sumário
+
+- [Acesso e Ajuda](#acesso-e-ajuda)
+- [Navegação no Sistema](#navegação-no-sistema)
+- [Manipulação de Arquivos e Pastas](#manipulação-de-arquivos-e-pastas)
+- [Rede e Conexões](#rede-e-conexões)
+- [Sistema e Informações](#sistema-e-informações)
+- [Utilitários Avançados](#utilitários-avançados)
+- [Outros Comandos Úteis](#outros-comandos-úteis)
+
 ---
+
+### ❓ Acesso e Ajuda
+
+- **Abrir o CMD:** `Win + R`, digite `cmd`, pressione `Enter`
+- **Ajuda de um comando:** `<comando> /?`
+- **Listar todos os comandos disponíveis:** `help`
+
+---
+
+### 📂 Navegação no Sistema
+
+- **Mostrar diretório atual:** `cd`
+- **Mudar diretório:** `cd <caminho>`
+- **Voltar um nível:** `cd ..`
+- **Listar arquivos e pastas:** `dir`
+- **Limpar tela:** `cls`
+
+---
+
+### 📁 Manipulação de Arquivos e Pastas
+
+- **Criar pasta:** `mkdir <nome-da-pasta>`
+- **Remover pasta:** `rmdir <nome-da-pasta>`
+- **Criar arquivo de texto vazio:** `type nul > <arquivo.txt>`
+- **Renomear arquivo/pasta:** `ren <atual> <novo>`
+- **Copiar arquivo:** `copy <origem> <destino>`
+- **Mover arquivo:** `move <origem> <destino>`
+- **Excluir arquivo:** `del <arquivo>`
+- **Excluir pasta e conteúdo:** `rmdir /s <pasta>`
+
+---
+
+### 🌐 Rede e Conexões
+
+- **Ver endereço IP:** `ipconfig`
+- **Renovar IP:** `ipconfig /renew`
+- **Liberar IP:** `ipconfig /release`
+- **Testar conexão (ping):** `ping <endereço>`
+- **Ver conexões de rede ativas:** `netstat`
+- **Ver tabela de roteamento:** `route print`
+
+---
+
+### 🖥 Sistema e Informações
+
+- **Informações do sistema:** `systeminfo`
+- **Ver variáveis de ambiente:** `set`
+- **Ver processos em execução:** `tasklist`
+- **Encerrar processo:** `taskkill /IM <nome>.exe /F`
+- **Desligar o computador:** `shutdown /s /t 0`
+- **Reiniciar o computador:** `shutdown /r /t 0`
+
+---
+
+### 🧰 Utilitários Avançados
+
+- **Abrir Editor de Registro:** `regedit`
+- **Abrir Gerenciador de Tarefas:** `taskmgr`
+- **Abrir Editor de Política de Grupo:** `gpedit.msc` *(edições Pro e superiores)*
+- **Agendador de Tarefas:** `taskschd.msc`
+- **Abrir Configurações do Sistema (msconfig):** `msconfig`
+- **Gerenciamento de Disco:** `diskmgmt.msc`
+- **Gerenciamento de Computador:** `compmgmt.msc`
+
+---
+
+### 🛠 Outros Comandos Úteis
+
+- **Ver histórico de comandos digitados:** `doskey /history`
+- **Executar como outro usuário:** `runas /user:<usuário> <comando>`
+- **Ver tempo de atividade do sistema:** `net statistics workstation`
+- **Montar unidade de rede:** `net use Z: \\servidor\compartilhamento`
+- **Ver compartilhamentos ativos:** `net share`
+- **Listar usuários do sistema:** `net user`
+- **Criar novo usuário:** `net user <nome> <senha> /add`
+- **Adicionar usuário a um grupo:** `net localgroup <grupo> <usuário> /add`
+
+---
+
 
 ## Comandos Executar
 [Voltar ao Início](#central-de-comandos)
