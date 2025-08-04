@@ -21,7 +21,6 @@
 - [Docker Compose](#-docker-compose)
 - [Outros Comandos Úteis](#-outros-comandos-úteis)
 
----
 
 ### ⚙️ Instalação e Configuração
 
@@ -31,7 +30,6 @@
 - **Habilitar Docker na inicialização:** `sudo systemctl enable docker`  
 - **Executar Docker sem sudo (Linux):** `sudo usermod -aG docker $USER && newgrp docker`  
 
----
 
 ### 📥 Imagens
 
@@ -41,7 +39,6 @@
 - **Remover imagem:** `docker rmi <imagem>`  
 - **Criar imagem a partir de Dockerfile:** `docker build -t <nome-da-imagem> .`  
 
----
 
 ### 🧱 Containers
 
@@ -54,7 +51,6 @@
 - **Remover container:** `docker rm <container>`  
 - **Acessar terminal do container:** `docker exec -it <container> /bin/bash`  
 
----
 
 ### 💾 Volumes
 
@@ -63,7 +59,6 @@
 - **Usar volume no container:** `docker run -v <nome-volume>:/caminho/no/container <imagem>`  
 - **Remover volume:** `docker volume rm <nome>`  
 
----
 
 ### 🌐 Redes
 
@@ -72,7 +67,6 @@
 - **Conectar container à rede:** `docker network connect <rede> <container>`  
 - **Remover rede:** `docker network rm <nome>`  
 
----
 
 ### 🧩 Docker Compose
 
@@ -81,7 +75,6 @@
 - **Ver logs dos serviços:** `docker-compose logs`  
 - **Reconstruir serviços:** `docker-compose up --build`  
 
----
 
 ### 🛠 Outros Comandos Úteis
 
