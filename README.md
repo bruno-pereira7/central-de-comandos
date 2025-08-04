@@ -2,9 +2,96 @@
 
 ## Sumário das Centrais
 
-
+- [Comandos Docker](#-comandos-docker)
+- [Comandos Git](#-comandos-git)
+- [Comandos Executar](#-comandos-executar)
 
 ---
+
+## 🐳 Comandos Docker
+
+### Sumário
+
+- [Instalação e Configuração](#️-instalação-e-configuração)
+- [Imagens](#-imagens)
+- [Containers](#-containers)
+- [Volumes](#-volumes)
+- [Redes](#-redes)
+- [Docker Compose](#-docker-compose)
+- [Outros Comandos Úteis](#-outros-comandos-úteis)
+
+---
+
+### ⚙️ Instalação e Configuração
+
+- **Verificar instalação:** `docker --version`  
+- **Verificar status do serviço Docker:** `systemctl status docker`  
+- **Iniciar o serviço Docker:** `sudo systemctl start docker`  
+- **Habilitar Docker na inicialização:** `sudo systemctl enable docker`  
+- **Executar Docker sem sudo (Linux):** `sudo usermod -aG docker $USER && newgrp docker`  
+
+---
+
+### 📥 Imagens
+
+- **Listar imagens locais:** `docker images`  
+- **Buscar imagem no Docker Hub:** `docker search <nome>`  
+- **Baixar imagem:** `docker pull <nome-da-imagem>`  
+- **Remover imagem:** `docker rmi <imagem>`  
+- **Criar imagem a partir de Dockerfile:** `docker build -t <nome-da-imagem> .`  
+
+---
+
+### 🧱 Containers
+
+- **Listar containers em execução:** `docker ps`  
+- **Listar todos os containers (inclusive parados):** `docker ps -a`  
+- **Criar e executar container:** `docker run -d --name <nome> <imagem>`  
+- **Executar container com terminal interativo:** `docker run -it <imagem> /bin/bash`  
+- **Parar container:** `docker stop <container>`  
+- **Iniciar container parado:** `docker start <container>`  
+- **Remover container:** `docker rm <container>`  
+- **Acessar terminal do container:** `docker exec -it <container> /bin/bash`  
+
+---
+
+### 💾 Volumes
+
+- **Criar volume:** `docker volume create <nome>`  
+- **Listar volumes:** `docker volume ls`  
+- **Usar volume no container:** `docker run -v <nome-volume>:/caminho/no/container <imagem>`  
+- **Remover volume:** `docker volume rm <nome>`  
+
+---
+
+### 🌐 Redes
+
+- **Listar redes:** `docker network ls`  
+- **Criar nova rede:** `docker network create <nome>`  
+- **Conectar container à rede:** `docker network connect <rede> <container>`  
+- **Remover rede:** `docker network rm <nome>`  
+
+---
+
+### 🧩 Docker Compose
+
+- **Subir serviços definidos no `docker-compose.yml`:** `docker-compose up -d`  
+- **Parar os serviços:** `docker-compose down`  
+- **Ver logs dos serviços:** `docker-compose logs`  
+- **Reconstruir serviços:** `docker-compose up --build`  
+
+---
+
+### 🛠 Outros Comandos Úteis
+
+- **Ver uso de recursos (CPU, RAM):** `docker stats`  
+- **Ver detalhes do container:** `docker inspect <container>`  
+- **Copiar arquivo para container:** `docker cp <arquivo> <container>:/caminho`  
+- **Copiar arquivo do container:** `docker cp <container>:/caminho <destino-local>`  
+- **Limpar containers/parados e imagens não utilizadas:** `docker system prune`  
+
+---
+
 
 ## 🧠 Comandos Git
 
