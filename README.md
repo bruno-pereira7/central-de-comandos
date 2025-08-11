@@ -4,9 +4,16 @@
 
 - [Comandos Docker](#-comandos-docker)
 - [Comandos Git](#-comandos-git)
+
+> **Comandos Windows**
 - [Comandos CMD](#-comandos-cmd-prompt-de-comando)
 - [Comandos Executar](#comandos-executar)
+
+> **Comandos Linux**
+- [Comandos Básicos (Ubuntu/Lubuntu)](#-comandos-linux-ubuntulubuntu)
 ---
+
+> **FERRAMENTAS**
 
 ## 🐳 Comandos Docker
 [Voltar ao Início](#central-de-comandos)
@@ -175,6 +182,8 @@
 - **Atualizar submódulos:** `git submodule update`  
 
 ---
+
+> **WINDOWS**
 
 ## 💻 Comandos CMD (Prompt de Comando)
 [Voltar ao Início](#central-de-comandos)
@@ -540,3 +549,121 @@
 - Windows Media Player = wmplayer
 
 - Windows Messenger (Executar MSN) = msmsgs
+
+---
+
+> **LINUX**
+
+## 🐧 Comandos Linux (Ubuntu/Lubuntu)
+[Voltar ao Início](#central-de-comandos)
+
+### Sumário
+
+- [Acesso e Ajuda](#acesso-e-ajuda)
+- [Navegação no Sistema](#navegação-no-sistema)
+- [Manipulação de Arquivos e Pastas](#manipulação-de-arquivos-e-pastas)
+- [Rede e Conexões](#rede-e-conexões)
+- [Sistema e Informações](#sistema-e-informações)
+- [Permissões e Usuários](#permissões-e-usuários)
+- [Utilitários Avançados](#utilitários-avançados)
+- [Outros Comandos Úteis](#outros-comandos-úteis)
+
+
+### ❓ Acesso e Ajuda
+
+- **Abrir o terminal:** `Ctrl + Alt + T`
+- **Ajuda de um comando:** `<comando> --help` ou `man <comando>`
+- **Pesquisar por comandos:** `apropos <termo>`
+- **Histórico de comandos:** `history`
+
+
+### 📂 Navegação no Sistema
+
+- **Mostrar diretório atual:** `pwd`
+- **Mudar diretório:** `cd <caminho>`
+- **Voltar um nível:** `cd ..`
+- **Ir para o diretório pessoal:** `cd ~` ou apenas `cd`
+- **Listar arquivos e pastas:** `ls`
+- **Listar com detalhes:** `ls -l`
+- **Incluir arquivos ocultos:** `ls -a`
+- **Limpar a tela:** `clear`
+
+
+### 📁 Manipulação de Arquivos e Pastas
+
+- **Criar pasta:** `mkdir <nome-da-pasta>`
+- **Criar várias pastas:** `mkdir -p pasta1/pasta2`
+- **Remover pasta vazia:** `rmdir <nome-da-pasta>`
+- **Remover pasta e conteúdo:** `rm -r <pasta>`
+- **Criar arquivo vazio:** `touch <arquivo.txt>`
+- **Ver conteúdo de arquivo:** `cat <arquivo.txt>`
+- **Renomear ou mover arquivo/pasta:** `mv <origem> <destino>`
+- **Copiar arquivo:** `cp <origem> <destino>`
+- **Copiar pasta (recursivo):** `cp -r <origem> <destino>`
+- **Excluir arquivo:** `rm <arquivo>`
+
+
+### 🌐 Rede e Conexões
+
+- **Ver IP (modo texto):** `ip a` ou `hostname -I`
+- **Ver status da rede:** `nmcli` ou `ifconfig` *(pode precisar instalar o pacote `net-tools`)*
+- **Testar conexão (ping):** `ping <endereço>`
+- **Ver rotas de rede:** `ip route`
+- **Ver conexões ativas:** `netstat -tuln` *(precisa instalar o `net-tools`)*
+- **Ver DNS configurado:** `cat /etc/resolv.conf`
+
+
+### 🖥 Sistema e Informações
+
+- **Informações do sistema:** `uname -a`
+- **Informações detalhadas do sistema:** `neofetch` *(pode ser necessário instalar)*
+- **Ver tempo de atividade:** `uptime`
+- **Ver uso do disco:** `df -h`
+- **Ver uso da memória:** `free -h`
+- **Ver processos ativos:** `top` ou `htop` *(htop pode precisar instalar)*
+- **Encerrar processo:** `kill <PID>` ou `killall <nome-do-processo>`
+- **Reiniciar o sistema:** `sudo reboot`
+- **Desligar o sistema:** `sudo shutdown now`
+- **Agendar desligamento:** `sudo shutdown +10` *(em 10 minutos)*
+
+
+### 🔐 Permissões e Usuários
+
+- **Ver usuário atual:** `whoami`
+- **Listar todos os usuários:** `cat /etc/passwd`
+- **Criar novo usuário:** `sudo adduser <nome>`
+- **Alterar senha:** `passwd <nome>`
+- **Adicionar usuário a grupo:** `sudo usermod -aG <grupo> <usuário>`
+- **Ver grupos de um usuário:** `groups <usuário>`
+- **Listar permissões de arquivos:** `ls -l`
+- **Alterar permissões:** `chmod <modo> <arquivo>`
+- **Alterar dono e grupo:** `chown <dono>:<grupo> <arquivo>`
+
+
+### 🧰 Utilitários Avançados
+
+- **Editar arquivos via terminal:** `nano <arquivo>` ou `vim <arquivo>`
+- **Buscar arquivos:** `find <caminho> -name "<nome>"`
+- **Buscar conteúdo dentro de arquivos:** `grep "<texto>" <arquivo>`
+- **Arquivar e compactar (tar.gz):** `tar -czvf arquivo.tar.gz pasta/`
+- **Descompactar:** `tar -xzvf arquivo.tar.gz`
+- **Atualizar lista de pacotes:** `sudo apt update`
+- **Atualizar sistema:** `sudo apt upgrade`
+- **Instalar pacote:** `sudo apt install <pacote>`
+- **Remover pacote:** `sudo apt remove <pacote>`
+- **Ver pacotes instalados:** `dpkg -l`
+
+
+### 🛠 Outros Comandos Úteis
+
+- **Ver data e hora atual:** `date`
+- **Alterar data e hora (sudo):** `sudo date MMDDhhmmYYYY`
+- **Ver caminho de um comando:** `which <comando>`
+- **Ver tipo de arquivo:** `file <arquivo>`
+- **Montar dispositivo:** `sudo mount /dev/sdX /mnt`
+- **Desmontar dispositivo:** `sudo umount /mnt`
+- **Ver dispositivos conectados:** `lsblk` ou `df -h`
+- **Criar alias de comando:** `alias nome='comando'`
+- **Executar como root:** `sudo <comando>`
+
+---
