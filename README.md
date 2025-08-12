@@ -569,7 +569,10 @@
 - [Outros Comandos Úteis](#outros-comandos-úteis)
 
 
-### ❓ Acesso e Ajuda
+### 🧠 Comandos Básicos
+
+
+#### ❓ Acesso e Ajuda
 
 - **Abrir o terminal:** `Ctrl + Alt + T`
 - **Ajuda de um comando:** `<comando> --help` ou `man <comando>`
@@ -577,7 +580,7 @@
 - **Histórico de comandos:** `history`
 
 
-### 📂 Navegação no Sistema
+#### 📂 Navegação no Sistema
 
 - **Mostrar diretório atual:** `pwd`
 - **Mudar diretório:** `cd <caminho>`
@@ -589,7 +592,7 @@
 - **Limpar a tela:** `clear`
 
 
-### 📁 Manipulação de Arquivos e Pastas
+#### 📁 Manipulação de Arquivos e Pastas
 
 - **Criar pasta:** `mkdir <nome-da-pasta>`
 - **Criar várias pastas:** `mkdir -p pasta1/pasta2`
@@ -603,7 +606,7 @@
 - **Excluir arquivo:** `rm <arquivo>`
 
 
-### 🌐 Rede e Conexões
+#### 🌐 Rede e Conexões
 
 - **Ver IP (modo texto):** `ip a` ou `hostname -I`
 - **Ver status da rede:** `nmcli` ou `ifconfig` *(pode precisar instalar o pacote `net-tools`)*
@@ -613,7 +616,7 @@
 - **Ver DNS configurado:** `cat /etc/resolv.conf`
 
 
-### 🖥 Sistema e Informações
+#### 🖥 Sistema e Informações
 
 - **Informações do sistema:** `uname -a`
 - **Informações detalhadas do sistema:** `neofetch` *(pode ser necessário instalar)*
@@ -627,7 +630,7 @@
 - **Agendar desligamento:** `sudo shutdown +10` *(em 10 minutos)*
 
 
-### 🔐 Permissões e Usuários
+#### 🔐 Permissões e Usuários
 
 - **Ver usuário atual:** `whoami`
 - **Listar todos os usuários:** `cat /etc/passwd`
@@ -640,7 +643,7 @@
 - **Alterar dono e grupo:** `chown <dono>:<grupo> <arquivo>`
 
 
-### 🧰 Utilitários Avançados
+#### 🧰 Utilitários Avançados
 
 - **Editar arquivos via terminal:** `nano <arquivo>` ou `vim <arquivo>`
 - **Buscar arquivos:** `find <caminho> -name "<nome>"`
@@ -654,7 +657,7 @@
 - **Ver pacotes instalados:** `dpkg -l`
 
 
-### 🛠 Outros Comandos Úteis
+#### 🛠 Outros Comandos Úteis
 
 - **Ver data e hora atual:** `date`
 - **Alterar data e hora (sudo):** `sudo date MMDDhhmmYYYY`
@@ -666,4 +669,79 @@
 - **Criar alias de comando:** `alias nome='comando'`
 - **Executar como root:** `sudo <comando>`
 
+### 🧠 Comandos Avançados
+
+#### 🧪 Scripts e Automação
+
+- **Executar script bash:** `bash script.sh` ou `./script.sh`
+- **Tornar script executável:** `chmod +x script.sh`
+- **Rodar script no boot (systemd):** `sudo systemctl enable nome.service`
+- **Executar comando automaticamente com @reboot:** `crontab -e` → `@reboot /caminho/comando.sh`
+- **Agendar tarefas com cron:** `crontab -e` → `* * * * * comando`
+
+#### 📦 Gerenciamento de Pacotes Avançado
+
+- **Limpar pacotes não utilizados:** `sudo apt autoremove`
+- **Limpar cache do apt:** `sudo apt clean`
+- **Reconfigurar pacote instalado:** `sudo dpkg-reconfigure <pacote>`
+- **Corrigir pacotes quebrados:** `sudo apt --fix-broken install`
+- **Forçar reinstalação de pacote:** `sudo apt install --reinstall <pacote>`
+
+#### 🛠 Gerenciamento de Serviços (systemd)
+
+- **Ver status de um serviço:** `systemctl status <serviço>`
+- **Iniciar serviço:** `sudo systemctl start <serviço>`
+- **Parar serviço:** `sudo systemctl stop <serviço>`
+- **Reiniciar serviço:** `sudo systemctl restart <serviço>`
+- **Habilitar serviço no boot:** `sudo systemctl enable <serviço>`
+- **Desabilitar serviço no boot:** `sudo systemctl disable <serviço>`
+
+#### 🔒 Segurança e Firewall
+
+- **Status do firewall (ufw):** `sudo ufw status`
+- **Habilitar firewall:** `sudo ufw enable`
+- **Bloquear porta:** `sudo ufw deny 22`
+- **Permitir porta:** `sudo ufw allow 22`
+- **Resetar configurações do ufw:** `sudo ufw reset`
+
+#### 🔄 Processos e Monitoramento
+
+- **Ver árvore de processos:** `pstree`
+- **Buscar processo por nome:** `ps aux | grep <nome>`
+- **Ver consumo de recursos por processo:** `top` ou `htop`
+- **Ver logs do sistema:** `journalctl -xe`
+- **Ver logs em tempo real:** `tail -f /var/log/syslog`
+
+#### 🧰 Avançado com Arquivos
+
+- **Ver espaço de uma pasta:** `du -sh <pasta>`
+- **Listar maiores arquivos/pastas:** `du -ah . | sort -rh | head -n 10`
+- **Comparar arquivos:** `diff arquivo1 arquivo2`
+- **Sincronizar diretórios (backup):** `rsync -avh origem/ destino/`
+- **Montar ISO:** `sudo mount -o loop arquivo.iso /mnt`
+
+#### 📡 Rede Avançada
+
+- **Ver portas abertas:** `sudo lsof -i -P -n`
+- **Escutar porta local (netcat):** `nc -lvp 8080`
+- **Ver tráfego de rede:** `iftop` *(pode precisar instalar)*
+- **Testar velocidade de conexão:** `speedtest-cli` *(instalar com `pip install speedtest-cli`)*
+- **Ver tabela ARP:** `arp -a`
+
+#### 🔐 Permissões e Controle Avançado
+
+- **Dar permissão total (⚠️ risco):** `chmod 777 <arquivo>`
+- **Dar permissão de execução apenas:** `chmod +x <arquivo>`
+- **Trocar dono de vários arquivos recursivamente:** `sudo chown -R usuario:grupo pasta/`
+- **Bloquear conta de usuário:** `sudo usermod -L <usuario>`
+- **Desbloquear conta:** `sudo usermod -U <usuario>`
+
+#### 💣 Diagnóstico e Recuperação
+
+- **Ver erros de boot:** `dmesg | less`
+- **Ver logs do boot atual:** `journalctl -b`
+- **Resgatar sistema via root:** `sudo -i`
+- **Recuperar GRUB:**  
+  `sudo grub-install /dev/sdX`  
+  `sudo update-grub`
 ---
