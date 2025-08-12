@@ -10,7 +10,7 @@
 - [Comandos Executar](#comandos-executar)
 
 > **Comandos Linux**
-- [Comandos Básicos (Ubuntu/Lubuntu)](#-comandos-linux-ubuntulubuntu)
+- [Comandos Básicos e Avançados (Ubuntu/Lubuntu)](#-comandos-linux-ubuntulubuntu)
 ---
 
 > **Ferramentas**
