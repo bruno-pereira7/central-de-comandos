@@ -568,9 +568,18 @@
 - [Utilitários Avançados](#utilitários-avançados)
 - [Outros Comandos Úteis](#outros-comandos-úteis)
 
+- [Scripts e Automação](#scripts-e-automação)
+- [Gerenciamento de Pacotes Avançado](#gerenciamento-de-pacotes-avançado)
+- [Gerenciamento de Serviços (systemd)](#gerenciamento-de-serviços-systemd)
+- [Segurança e Firewall](#segurança-e-firewall)
+- [Processos e Monitoramento](#processos-e-monitoramento)
+- [Avançado com Arquivos](#avançado-com-arquivos)
+- [Rede Avançada](#rede-avançada)
+- [Permissões e Controle Avançado](#permissões-e-controle-avançado)
+- [Diagnóstico e Recuperação](#diagnóstico-e-recuperação)
+
 
 ### 🧠 Comandos Básicos
-
 
 #### ❓ Acesso e Ajuda
 
