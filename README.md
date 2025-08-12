@@ -559,6 +559,7 @@
 
 ### Sumário
 
+- **Basicos**
 - [Acesso e Ajuda](#acesso-e-ajuda)
 - [Navegação no Sistema](#navegação-no-sistema)
 - [Manipulação de Arquivos e Pastas](#manipulação-de-arquivos-e-pastas)
@@ -568,6 +569,7 @@
 - [Utilitários Avançados](#utilitários-avançados)
 - [Outros Comandos Úteis](#outros-comandos-úteis)
 
+- **Avançados**
 - [Scripts e Automação](#scripts-e-automação)
 - [Gerenciamento de Pacotes Avançado](#gerenciamento-de-pacotes-avançado)
 - [Gerenciamento de Serviços (systemd)](#gerenciamento-de-serviços-systemd)
