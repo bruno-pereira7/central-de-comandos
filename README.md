@@ -13,7 +13,7 @@
 - [Comandos Básicos (Ubuntu/Lubuntu)](#-comandos-linux-ubuntulubuntu)
 ---
 
-> **FERRAMENTAS**
+> **Ferramentas**
 
 ## 🐳 Comandos Docker
 [Voltar ao Início](#central-de-comandos)
