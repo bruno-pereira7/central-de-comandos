@@ -22,6 +22,8 @@
 
 ![Imagem Docker](https://blog.elaniin.com/content/images/size/w1600/2022/08/Docker_jpg.jpeg)
 
+<img src="[https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIFFTEdfcK9c1vjVkrwkAnmoouwyl7bL8BcQ&s](https://blog.elaniin.com/content/images/size/w1600/2022/08/Docker_jpg.jpeg)" width=100% height=400px>
+
 ### Sumário
 
 - [Instalação e Configuração](#️-instalação-e-configuração)
@@ -102,7 +104,8 @@
 
 [Voltar ao Início](#central-de-comandos)
 
-![Imagem Git](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIFFTEdfcK9c1vjVkrwkAnmoouwyl7bL8BcQ&s)
+
+<img src="https://hermes.dio.me/articles/cover/b749e313-f4d9-4038-bc3c-7854a8975244.jpg" width=80% class="center">
 
 ### Sumário
 
